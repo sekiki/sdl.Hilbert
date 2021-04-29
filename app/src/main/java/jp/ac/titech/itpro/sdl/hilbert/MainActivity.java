@@ -17,6 +17,9 @@ public class MainActivity extends AppCompatActivity {
     private Button decButton;
     private Button incButton;
 
+    private final static String KEY_ORDER = "MainActivity.order";
+    //private String name = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,11 @@ public class MainActivity extends AppCompatActivity {
                 display();
             }
         });
+
+        if(savedInstanceState != null){
+            order = savedInstanceState.getInt(KEY_ORDER);
+        }
+
     }
 
     @Override
@@ -56,6 +64,12 @@ public class MainActivity extends AppCompatActivity {
         hilbertView.setOrder(order);
         decButton.setEnabled(order > 1);
         incButton.setEnabled(order < MAX_ORDER);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_ORDER, String.valueOf(order));
     }
 
     public static void assertTrue(boolean f, String message) {
